@@ -1,7 +1,5 @@
 'use client';
 // app/page.js
-import '../../src/app/globals.css';
-
 import { useRouter } from "next/navigation";
 
 const Home = () => {

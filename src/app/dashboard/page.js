@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import QuestionDropdown from '../components/QuestionDropdown';
 import QuestionPrototype from '../components/QuestionPrototype';
+import { toast } from 'react-toastify';
+
+
 
 const Dashboard = () => {
   const [quizName, setQuizName] = useState('');
@@ -175,7 +178,8 @@ const Dashboard = () => {
       const data = await response.json();
       setQuizzes([...quizzes, data.quiz]);
       setQuizName('');
-      alert('Quiz created successfully!');
+      // alert('Quiz created successfully!');
+      toast.success("Quiz Created Successfully");
     } else {
       alert('Failed to create quiz.');
     }
@@ -200,7 +204,8 @@ const Dashboard = () => {
     console.log(selectedQuiz)
     if (response.ok) {
       setQuestion(null); // Clear question input after saving
-      alert('Question saved successfully!');
+      // alert('Question saved successfully!');
+      toast.success("Question Saved Successfully");
     } else {
       alert('Failed to save question.');
     }
@@ -225,6 +230,8 @@ const Dashboard = () => {
     if (response.ok) {
       const result = await response.json();  
       console.log('Quiz assigned successfully:', result);
+      // alert("Quiz Assigned Successfully");
+      toast.success("Quiz Assigned Successfully");
     } else {
       const error = await response.json();
       console.error('Error assigning quiz:', error);

@@ -1,4 +1,6 @@
 // app/layout.js
+import '../../src/app/globals.css';
+import ToastConfig from './components/ToastConfig';
 
 export const metadata = {
   title: 'Test App',
@@ -10,6 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <div className="container mx-auto p-4">
+        <ToastConfig />
           {children}
         </div>
       </body>

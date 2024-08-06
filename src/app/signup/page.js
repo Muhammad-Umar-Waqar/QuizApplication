@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-
+import { toast } from 'react-toastify';
 const SignUp = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -26,6 +26,7 @@ const SignUp = () => {
       const result = await response.json();
 
       if (response.ok) {
+        toast.success(`${name} Signed Up Successfully!`)
         router.push('/signin'); // Redirect to sign-in page after successful sign-up
       } else {
         setError(result.error);

@@ -4,12 +4,15 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +31,7 @@ const SignIn = () => {
       if (response.ok) {
         // Save JWT token to localStorage/session
         localStorage.setItem('token', result.token);
+        toast.success("User Signed In Successfully!")
         router.push('/dashboard'); // Redirect to dashboard after successful sign-in
       } else {
         setError(result.error);
