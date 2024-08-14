@@ -8,9 +8,10 @@ import connectToDatabase from '../../../db/db';
 
 
 dotenv.config();
+connectToDatabase();
 export async function POST(request) {
   try {
-    await connectToDatabase();
+    // await connectToDatabase();
     const data = await request.json();
 
     // Add the createdBy field to the quiz data

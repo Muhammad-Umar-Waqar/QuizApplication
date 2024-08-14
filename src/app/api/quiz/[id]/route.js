@@ -7,9 +7,10 @@ import connectToDatabase from '../../../../db/db';
 
 dotenv.config();
 
+connectToDatabase();
 export async function GET(request) {
   try {
-    await connectToDatabase();
+    // await connectToDatabase();
 
     // Extract the ID from the request URL
     const url = new URL(request.url);

@@ -3,10 +3,14 @@ import User from '../../models/User';
 import dotenv from 'dotenv';
 dotenv.config();
 
+
+
+
+connectToDatabase();
 export async function GET(req) {
     
     try {
-        await connectToDatabase();
+        // await connectToDatabase();
         const users = await User.find({});
         // console.log("Users: ", users);
         return new Response(JSON.stringify(users), { status: 200 });

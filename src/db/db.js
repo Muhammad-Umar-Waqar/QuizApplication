@@ -16,9 +16,10 @@ async function connectToDatabase() {
     } if (mongoose.connection.readyState == 1) {
         console.log("Using existing MongoDB connection.");
     }
-    
+
     else {
         console.log("Error in Mongodb Connection");
+        process.on('exit');
     }
 }
 

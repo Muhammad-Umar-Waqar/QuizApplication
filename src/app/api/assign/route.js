@@ -7,9 +7,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+
+connectToDatabase();
 export async function POST(request) {
   try {
-    await connectToDatabase();
+    // await connectToDatabase();
     const { userId, quizId, assignedBy } = await request.json();
     
     console.log("userID", userId, "quizId", quizId, "assignedBy", assignedBy);
@@ -56,7 +58,5 @@ export async function POST(request) {
   } catch (error) {
     console.error('Error assigning quiz:', error);
     return NextResponse.json({ error: 'Failed to assign quiz' }, { status: 500 });
-  } finally {
-    await mongoose.disconnect();
   }
 }

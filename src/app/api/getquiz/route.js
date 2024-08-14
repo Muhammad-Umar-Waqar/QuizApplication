@@ -2,24 +2,25 @@ import { NextResponse } from 'next/server';
 import Quiz from '../../models/Quiz';
 import dotenv from 'dotenv';
 import connectToDatabase from '../../../db/db'
+import { cookies } from 'next/headers';
 dotenv.config();
 
 
-
-  export async function POST(req, res){
-      
+connectToDatabase();
+  export async function GET(){
     try {
       await connectToDatabase();
-      const  {userID}  = await req.json();
+      const userId = cookies().get('userId')?.value;
+      // const  {userID}  = await req.json();
       
-      if (!userID) {
-        console.log("USER ID NOT FOUND!");
-        return res.status(400).json({ message: 'User ID is required' });
-      }
+      // if (!userID) {
+      //   console.log("USER ID NOT FOUND!");
+      //   return res.status(400).json({ message: 'User ID is required' });
+      // }
 
-      console.log("userID", userID)
+      console.log("userID", userId)
       
-      const quizzes = await Quiz.find({ createdBy: userID }).populate('questions');
+      const quizzes = await Quiz.find({ createdBy: userId }).populate('questions');
       console.log("quizzes from QUIZ", quizzes)
       return NextResponse.json(quizzes);
     }

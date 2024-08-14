@@ -7,10 +7,10 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
+connectToDatabase();
 export async function POST(request) {
   try {
-    await connectToDatabase();
+    // await connectToDatabase();
     const { name, email, password } = await request.json();
 
     // Ensure the password field is provided
@@ -32,7 +32,5 @@ export async function POST(request) {
   } catch (error) {
     console.error('Error creating user:', error);
     return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
-  } finally {
-    await mongoose.disconnect();
   }
 }

@@ -8,9 +8,10 @@ import connectToDatabase from '../../../db/db'
 
 dotenv.config();
 
+connectToDatabase();
 export async function POST(request) {
   try {
-    await connectToDatabase();
+    // await connectToDatabase();
     const data = await request.json();
     const { quizId, questionText, type, options, correctOption, correctAnswer } = data;
 
@@ -32,7 +33,7 @@ export async function POST(request) {
 }
 
 export async function GET(request) {
-  await connectToDatabase();
+  // await connectToDatabase();
   try {
     const { searchParams } = new URL(request.url);
     const quizId = searchParams.get('quiz');

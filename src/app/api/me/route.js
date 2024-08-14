@@ -7,9 +7,11 @@ import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
+
+connectToDatabase();
 export async function GET(request) {
   try {
-    await connectToDatabase();
+    // await connectToDatabase();
     const authHeader = request.headers.get('Authorization');
     if (!authHeader) {
       return NextResponse.json({ error: 'Authorization header missing' }, { status: 401 });

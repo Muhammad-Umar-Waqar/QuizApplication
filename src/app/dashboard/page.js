@@ -70,19 +70,17 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        if (!myID) {
-          console.error('User ID not found');
-          return;
+        
+        if(myID){
+          const response = await fetch(`/api/notifications?userId=${myID}`);
+          console.log("Response from Notifications", response)
+          if (!response.ok) {
+            throw new Error('Failed to fetch notifications');
+          }
+          
+          const data = await response.json();
+          setNotifications(data);
         }
-
-        const response = await fetch(`/api/notifications?userId=${myID}`);
-        console.log("Response from Notifications", response)
-        if (!response.ok) {
-          throw new Error('Failed to fetch notifications');
-        }
-
-        const data = await response.json();
-        setNotifications(data);
       } catch (error) {
         console.error('Error fetching notifications:', error);
       }
@@ -115,22 +113,17 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
-        const response = await fetch('/api/getquiz', {
-           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ userID: myID }),
-        });
+        const response = await fetch('/api/getquiz');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
+
         const data = await response.json();
 
         console.log("Data from /api/quiz", data);
         setQuizzes(data);
       } catch (error) {
-        console.error('Failed to fetch quizzes from api/qioz:', error);
+        console.error('Failed to fetch quizzes from api/quiz:', error);
         // alert('Failed to fetch quizzes from api/quiz. Check the console for details.');
       }
     };
@@ -241,6 +234,7 @@ const Dashboard = () => {
   
   
 
+
   const handleNotificationClick = async (notificationId, quizId) => {
     
     // Mark the notification as read
@@ -258,6 +252,27 @@ const Dashboard = () => {
     router.push(`/attempt-quiz/${quizId._id}`);
   };
 
+
+
+  async function handleLogout() {
+    try {
+        const response = await fetch('/api/logout', {
+            method: 'POST',
+        });
+
+        if (response.ok) {
+            // Handle successful logout (e.g., redirect to sign-in page)
+            router.push('/signin');
+        } else {
+            console.error('Failed to log out');
+        }
+    } catch (error) {
+        console.error('Error during logout:', error);
+    }
+}
+
+
+
   return (
     <div className="max-w-md mx-auto mt-10">
       <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
@@ -267,6 +282,9 @@ const Dashboard = () => {
           {/* Add more dashboard functionality here */}
         </div>
       )}
+          <button onClick={handleLogout} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
+          Logout
+        </button>
       <div className=''>
         <h1 className="text-2xl font-bold mb-4">Create Your Quiz</h1>
         <input
@@ -325,6 +343,7 @@ const Dashboard = () => {
           notifications.map((notification) => (
             <div key={notification._id} className="mb-4 p-4 border rounded">
               <p> {notification.status}</p>
+              <p> {notification.assignedBy?.name}</p>
               
               <button
                 onClick={() => handleNotificationClick(notification._id, notification.quizId)}

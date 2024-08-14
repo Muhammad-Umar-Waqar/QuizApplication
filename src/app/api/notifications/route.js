@@ -8,8 +8,9 @@ import connectToDatabase from '../../../db/db';
 
 
 dotenv.config();
+connectToDatabase();
 export async function GET(request) {
-  await connectToDatabase();
+  // await connectToDatabase();
   try {
     const url = new URL(request.url);
     const userId = url.searchParams.get('userId');
@@ -18,7 +19,9 @@ export async function GET(request) {
       return NextResponse.json({ error: 'User ID not provided' }, { status: 400 });
     }
 
-    const user = await User.findById(userId).populate('notifications.quizId');
+    const user = await User.findById(userId).populate('notifications.quizId').populate({
+      path: 'notifications.assignedBy'
+    });
     // console.log("Notification User", user)
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -28,7 +31,5 @@ export async function GET(request) {
   } catch (error) {
     console.error('Error fetching notifications:', error);
     return NextResponse.json({ error: 'Failed to fetch notifications' }, { status: 500 });
-  } finally {
-    await mongoose.disconnect();
-  }
+  } 
 }

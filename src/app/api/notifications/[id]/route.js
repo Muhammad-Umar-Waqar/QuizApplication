@@ -4,9 +4,10 @@ import mongoose from 'mongoose';
 import User from '../../../models/User';
 import connectToDatabase from '../../../../db/db';
 
+connectToDatabase();
 export async function PATCH(request) {
   try {
-    await connectToDatabase();
+    // await connectToDatabase();
     const { id , status } = await request.json();
 
     if (!id || !status) {
@@ -31,7 +32,5 @@ export async function PATCH(request) {
   } catch (error) {
     console.error('Error updating notification status:', error);
     return NextResponse.json({ error: 'Failed to update notification status' }, { status: 500 });
-  } finally {
-    await mongoose.disconnect();
   }
 }
