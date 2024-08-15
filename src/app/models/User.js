@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
   quizId: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' },
   assignedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   status: { type: String, default: 'Pending' }, // 'Pending', 'Viewed', 'Started'
-  assignedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+  // assignedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  quizScore: {type: Number, default: 0}
   }]
 });
 

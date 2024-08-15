@@ -42,7 +42,7 @@ const AttemptQuizPage = () => {
     }
   };
 
-  const handleSubmitQuiz = () => {
+  const handleSubmitQuiz = async () => {
     let correctAnswersCount = 0;
     questions.forEach((question) => {
       if (question.type === 'MCQs' && question.correctOption === parseInt(answers[question._id])) {
@@ -58,6 +58,15 @@ const AttemptQuizPage = () => {
     const percentageScore = (correctAnswersCount / questions.length) * 100;
     setScore(percentageScore);
     setShowResult(true);
+   const notificationId = localStorage.getItem("notificationId");
+    await fetch(`/api/notifications/${notificationId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id: notificationId, status: 'completed', quizScore: percentageScore }),
+    });
+  
   };
 
   if (!quiz) {

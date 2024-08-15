@@ -79,6 +79,7 @@ const Dashboard = () => {
           }
           
           const data = await response.json();
+          console.log("Notifications Data", data); 
           setNotifications(data);
         }
       } catch (error) {
@@ -208,6 +209,7 @@ const Dashboard = () => {
   const handleAssignQuiz = async () => {
     if (!selectedUser || !selectedQuiz || !myID) {
       console.error('User or quiz not selected');
+      toast.error("User or Quiz Not Selected")
       return;
     }
     // console.log('User: ', selectedUser, ' quiz', selectedQuiz, 'Assigned By ', myID);
@@ -243,13 +245,16 @@ const Dashboard = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id: notificationId, status: 'read' }),
+      body: JSON.stringify({ id: notificationId, status: 'read', quizScore: 0 }),
     });
 
    console.log("Notifiaction Quiz ID:", quizId._id);
    console.log("Notifiaction Quiz ID:", assignedQuiz);
     // Redirect to the quiz page with the selected quizId
     router.push(`/attempt-quiz/${quizId._id}`);
+    localStorage.setItem("notificationId", notificationId );
+    
+    // router.push(`/attempt-quiz/quizId=${quizId._id}?notificationId=${notificationId}`);
   };
 
 
@@ -342,9 +347,9 @@ const Dashboard = () => {
         {notifications.length > 0 ? (
           notifications.map((notification) => (
             <div key={notification._id} className="mb-4 p-4 border rounded">
-              <p> {notification.status}</p>
-              <p> {notification.assignedBy?.name}</p>
-              
+              <p> Status: {notification.status}</p>
+              <p> Assigned By: {notification.assignedBy?.name}</p>
+            <p>{notification.quizScore ? `${notification.quizScore.toFixed(2)} %` : "Attempt Quiz to display Score"}</p>
               <button
                 onClick={() => handleNotificationClick(notification._id, notification.quizId)}
                 className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
