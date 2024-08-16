@@ -81,10 +81,12 @@
 
 
 // app/signup/page.js
+
 'use client';
 import "./style.css"
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [name, setName] = useState('');
@@ -93,6 +95,8 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const router = useRouter();
 
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -101,17 +105,14 @@ const SignUp = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-         
-
         },
-
         body: JSON.stringify({ name, email, password }),
-        
       });
-      // console.log(USERS)
+
       const result = await response.json();
 
       if (response.ok) {
+        toast.success(`${name} Signed Up Successfully!`)
         router.push('/signin'); // Redirect to sign-in page after successful sign-up
       } else {
         setError(result.error);
@@ -121,13 +122,14 @@ const SignUp = () => {
       setError('Something went wrong. Please try again.');
     }
   };
+
   function handleSignin() {
     router.push("/signin");
   }
 
   return (
     <div className=" main_container flex flex-col items-center justify-center min-h-screen  p-4">
-          <h1 className="text-5xl text-center mb-8 text-blue-500 font-bold"  >SIGN UP</h1>
+          <h1 className="text-5xl text-center mb-8 font-bold text-white "  >SIGN UP</h1>
         
       
          
@@ -136,26 +138,32 @@ const SignUp = () => {
              <form onSubmit={handleSubmit} >
             <input type="text"
               value={name}
+              className="text-gray-800"
                placeholder="Name"
                onChange={(e) => setName(e.target.value)}
                 required />
               <input type="email"
               value={email}
+              className="text-gray-800"
                placeholder="Email"
                onChange={(e) => setEmail(e.target.value)}
                 required />
               <input type="password"
+              className="text-gray-800"
                value={password}
                onChange={(e) => setPassword(e.target.value)}
               placeholder="Password" required />
               <div className="fb-submit">
-                <button type="submit" className="login">Sign up</button>
-                <p>If you have an acount</p>
+                <button type="submit"  className=" bg-yellow-500 hover:bg-customYellow p-5 rounded-md ">Sign up</button>
+                <p >If you have an acount</p>
               </div>
               <hr />
-              <button className="button">
-                <a onClick={handleSignin} >Please Login Now</a>
+              <div className="flex items-center justify-center">
+              <button className=" bg-gray-600 p-5 w-fit rounded-md hover:bg-gray-300 "  onClick={handleSignin}>
+                Please Login Now
               </button>
+              </div>
+
             </form>
           </div>
   );

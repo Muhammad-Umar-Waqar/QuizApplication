@@ -27,7 +27,7 @@ const MCQPrototype = ({ question, setQuestion }) => {
                 value={question?.questionText || ''}
                 onChange={handleChange}
                 placeholder="Enter question text"
-                className="block w-full px-4 py-2 mb-4 border rounded"
+                className="block w-full px-4 py-2 mb-4 border rounded text-gray-800"
             />
             {question?.options?.map((option, index) => (
                 <div key={index} className="flex items-center mb-2">
@@ -37,7 +37,7 @@ const MCQPrototype = ({ question, setQuestion }) => {
                         value={index}
                         checked={question.correctOption === index}
                         onChange={() => handleCorrectOptionChange(index)}
-                        className="mr-2"
+                        className="mr-2 text-gray-800"
                     />
                     <input
                         type="text"
@@ -45,7 +45,7 @@ const MCQPrototype = ({ question, setQuestion }) => {
                         value={option}
                         onChange={(e) => handleOptionChange(index, e.target.value)}
                         placeholder={`Option ${index + 1}`}
-                        className="flex-1 px-4 py-2 border rounded"
+                        className="flex-1 px-4 py-2 border rounded text-gray-800"
                     />
                 </div>
             ))}
@@ -66,7 +66,7 @@ const TrueFalsePrototype = ({ question, setQuestion }) => {
                 value={question?.questionText || ''}
                 onChange={(e) => setQuestion(prev => ({ ...prev, questionText: e.target.value }))}
                 placeholder="Enter question text"
-                className="block w-full px-4 py-2 mb-4 border rounded"
+                className="block w-full px-4 py-2 mb-4 border rounded text-gray-800"
             />
             <div className="flex items-center mb-2">
                 <input
@@ -75,7 +75,7 @@ const TrueFalsePrototype = ({ question, setQuestion }) => {
                     value="true"
                     checked={question?.correctOption === true}
                     onChange={handleChange}
-                    className="mr-2"
+                    className="mr-2 text-gray-800"
                 />
                 <label>True</label>
             </div>
@@ -86,7 +86,7 @@ const TrueFalsePrototype = ({ question, setQuestion }) => {
                     value="false"
                     checked={question?.correctOption === false}
                     onChange={handleChange}
-                    className="mr-2"
+                    className="mr-2 text-gray-800"
                 />
                 <label>False</label>
             </div>
@@ -108,7 +108,7 @@ const FillInTheBlanksPrototype = ({ question, setQuestion }) => {
                 value={question?.questionText || ''}
                 onChange={handleChange}
                 placeholder="Enter question text"
-                className="block w-full px-4 py-2 mb-4 border rounded"
+                className="block w-full px-4 py-2 mb-4 border rounded text-gray-800"
             />
             <input
                 type="text"
@@ -116,7 +116,7 @@ const FillInTheBlanksPrototype = ({ question, setQuestion }) => {
                 value={question?.correctAnswer || ''}
                 onChange={handleChange}
                 placeholder="Enter correct answer"
-                className="block w-full px-4 py-2 border rounded"
+                className="block w-full px-4 py-2 border rounded text-gray-800"
             />
         </div>
     );

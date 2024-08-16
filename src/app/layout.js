@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 bg-gray-800 ">
         <ToastConfig />
           {children}
         </div>

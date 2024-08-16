@@ -31,7 +31,7 @@
 }
 
 .fb-form h1 {
-    color: #1877f2;
+    color: #f59e0b;;
     font-size: 4rem;
     margin-bottom: 10px;
 }
@@ -44,6 +44,10 @@
 form {
     display: flex;
     flex-direction: column;
+}
+
+.formPrimary{
+    padding: 10;
     background: #fff;
     border-radius: 8px;
     padding: 20px;
@@ -83,7 +87,7 @@ form input:focus {
     border: none;
     outline: none;
     cursor: pointer;
-    background: #1877f2;
+    background: #d8c40eea;
     padding: 15px 0;
     border-radius: 6px;
     color: #fff;
@@ -93,7 +97,7 @@ form input:focus {
 }
 
 .fb-submit .login:hover {
-    background: #0d65d9;
+    background: #c4b109ea;
 }
 
 form a {
@@ -101,7 +105,7 @@ form a {
 }
 
 .fb-submit .forgot {
-    color: #1877f2;
+    color: #c4b109ea;
     font-size: 0.875rem;
 }
 
@@ -125,7 +129,7 @@ hr {
 
 .button a {
     padding: 15px 20px;
-    background: #42b72a;
+    background: #393a39;
     border-radius: 6px;
     color: #fff;
     font-size: 1.063rem;
@@ -134,7 +138,7 @@ hr {
 }
 
 .button a:hover {
-    background: #3ba626;
+    background: #484948;
 }
 
 .footer-langs {

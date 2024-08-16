@@ -28,7 +28,7 @@ const QuestionDropdown = ({ onSelect }) => {
       >
         <option value="" disabled>Select question type</option>
         {questionTypes.map((type) => (
-          <option key={type} value={type}>{type}</option>
+          <option className='text-gray-800' key={type} value={type}>{type}</option>
         ))}
       </select>
     </div>

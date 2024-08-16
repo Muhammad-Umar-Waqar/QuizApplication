@@ -1,4 +1,4 @@
-// // app/signin/page.js
+// app/signin/page.js
 
 // 'use client';
 
@@ -83,15 +83,19 @@ import { Link } from 'next/link';
 import "./style.css"
 import { useRouter } from "next/navigation";
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const response = await fetch('/api/signin', {
         method: 'POST',
@@ -106,6 +110,7 @@ const SignIn = () => {
       if (response.ok) {
         // Save JWT token to localStorage/session
         localStorage.setItem('token', result.token);
+        toast.success("User Signed In Successfully!")
         router.push('/dashboard'); // Redirect to dashboard after successful sign-in
       } else {
         setError(result.error);
@@ -113,47 +118,51 @@ const SignIn = () => {
     } catch (err) {
       console.error('Error signing in:', err);
       setError('Something went wrong. Please try again.');
+    } 
+    finally {
+        setLoading(false); // Set loading to false after submission is complete
+      }
     }
-  //   const userLogin = {
-  //     email: email, 
-  //     password: password,
-  //   }
-  //   // localStorage.setItem('userLogin', JSON.stringify(userLogin))
-  // console.log(userLogin);
-  };
-
+    
   
 
   function handleSignup() {
     router.push("/signup");
   }
+
+
 return (
-      
         <div className=" main_container flex flex-col items-center justify-center min-h-screen  p-4">
-          <h1 className="text-5xl text-center mb-8 text-blue-500 font-bold"  >QUIZ APP</h1>
+          <h1 className="text-5xl text-center mb-8 text-white font-bold" >LOGIN</h1>
         
       
          
           {error && <p className="text-red-500 mb-4">{error}</p>}
-            <form onSubmit={handleSubmit}>
+            <div className='formPrimary'>
+            <form >
               <input type="email"
+              className="text-gray-800"
               value={email}
                placeholder="Email"
                onChange={(e) => setEmail(e.target.value)}
                 required />
               <input type="password"
+              className="text-gray-800"
                value={password}
                onChange={(e) => setPassword(e.target.value)}
               placeholder="Password" required />
               <div className="fb-submit">
-                <button type="submit" className="login">Login</button>
-                <p>If you don't have acount</p>
+                <button disabled={loading}  onClick={handleSubmit} className=" bg-yellow-500 hover:bg-customYellow p-5 rounded-md " >{loading ? 'Signing in...' : 'Login'} {/* Display loading text */}</button>
+                <p className='text-gray-800'>If you don't have acount</p>
               </div>
               <hr />
-              <button className="button">
-                <a  onClick={handleSignup}>Create new account</a>
-              </button>
             </form>
+            <div className='flex items-center justify-center'>
+              <button className="button bg-gray-800 text-white p-5 rounded-md hover:bg-gray-500 " disabled={loading} onClick={handleSignup}> Create new account
+              </button>
+            </div>
+            </div>
+
           </div>
        
       

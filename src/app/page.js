@@ -14,13 +14,13 @@ const Home = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4'>
-      <h1 className='text-5xl text-green-500 text-center mb-8'>QUIZ APP</h1>
+    <div className='flex flex-col items-center justify-center min-h-screen bg- p-4'>
+      <h1 className='text-5xl text-customYellow text-center mb-8'>QUIZ APP</h1>
       <div className='flex space-x-4'>
         <button 
           type="button" 
           onClick={handleSignin} 
-          className='px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300'
+          className='px-6 py-3 bg-yellow-500 hover:bg-customYellow text-white rounded-lg  transition duration-300'
         >
           Sign in
         </button>
