@@ -20,7 +20,7 @@ connectToDatabase();
 
       console.log("userID", userId)
       
-      const quizzes = await Quiz.find({ createdBy: userId }).populate('questions');
+      const quizzes = await Quiz.find({ createdBy: userId }).populate('questions').populate("assignedUsers");
       console.log("quizzes from QUIZ", quizzes)
       return NextResponse.json(quizzes);
     }

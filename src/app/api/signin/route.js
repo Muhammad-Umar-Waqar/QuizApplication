@@ -5,6 +5,7 @@ import User from '../../models/User';
 import connectToDatabase from '../../../db/db';
 import dotenv from 'dotenv';
 import { cookies } from 'next/headers'
+import { signinSchema } from '@/lib/validation/siginSchema';
 
 
 
@@ -14,7 +15,16 @@ connectToDatabase();
 export async function POST(request) {
     // await connectToDatabase();
     try {
-        const { email, password } = await request.json();
+        const body = await request.json();
+
+        // Validate the request body using signinSchema
+        const result = signinSchema.safeParse(body);
+
+        if (!result.success) {
+            return NextResponse.json({ error: result.error.errors[0].message }, { status: 400 });
+        }
+
+        const { email, password } = result.data;
 
         if (!email || !password) {
             return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });

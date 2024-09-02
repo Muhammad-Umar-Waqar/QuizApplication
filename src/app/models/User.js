@@ -3,9 +3,24 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';  // Ensure this is imported
 
+// const userSchema = new mongoose.Schema({
+//   name: { type: String, required: true },
+//   email: { type: String, required: true, unique: true },
+//   password: { type: String, required: true },
+//   quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' }],
+//   notifications: [{
+//   quizId: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' },
+//   assignedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+//   status: { type: String, default: 'Pending' }, // 'Pending', 'Viewed', 'Started'
+//   // assignedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+//   quizScore: {type: Number, default: 0}
+//   }]
+// });
+
+
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  name: { type: String, required: [true, "User Name is required"] },
+  email: { type: String, required: [true, "Email is required"], unique: true, match:[/.+\@.+\..+/ ,"Please use a valid email address"] },
   password: { type: String, required: true },
   quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' }],
   notifications: [{

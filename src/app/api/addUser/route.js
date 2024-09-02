@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import User from '../../models/User';
 import connectToDatabase from '../../../db/db'
 import dotenv from 'dotenv';
+import { signupSchema } from '@/lib/validation/signupSchema';
 
 dotenv.config();
 
@@ -11,7 +12,18 @@ connectToDatabase();
 export async function POST(request) {
   try {
     // await connectToDatabase();
-    const { name, email, password } = await request.json();
+    // const { name, email, password } = await request.json();
+
+    const body = await request.json();
+
+    // Validate the request body using signupSchema
+    const result = signupSchema.safeParse(body);
+
+    if (!result.success) {
+        return NextResponse.json({ error: result.error}, { status: 400 });
+    }
+
+    const { name, email, password } = result.data;
 
     // Ensure the password field is provided
     if (!name || !email || !password) {

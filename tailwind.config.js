@@ -6,6 +6,8 @@ module.exports = {
     './components/**/*.{js,jsx}',
     './app/**/*.{js,jsx}',
     './src/**/*.{js,jsx}',
+    // './app/**/*.{js,ts,jsx,tsx}',
+    // './components/**/*.{js,ts,jsx,tsx}',
   ],
   prefix: "",
   theme: {
@@ -17,7 +19,23 @@ module.exports = {
       },
     },
     extend: {
+      zIndex: {
+        100: 100,
+      },
+
+      keyframes: {
+        show: {
+          "0%, 49.99%": { opacity: 0, "z-index": 10 },
+          "50%, 100%": { opacity: 1, "z-index": 50 },
+        },
+      },
+
+      animation: {
+        show: "show 0.7s",
+      },
       colors: {
+        headPrimary: "#00194c",
+        primaryBlue: "#0055FF",
         customYellow: '#c4b109ea',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -81,7 +81,7 @@ export  function middleware(request) {
   const { pathname } = request.nextUrl;
 
   // Paths accessible only to logged-in users
-  const loggedOutUserNotAccessPaths = ['/dashboard', '/attempt-quiz'];
+  const loggedOutUserNotAccessPaths = ['/dashboard', '/dashboard/*'];
 
   // Redirect logged-out users from protected paths
   if (loggedOutUserNotAccessPaths.some(path => pathname.startsWith(path))) {
@@ -91,7 +91,7 @@ export  function middleware(request) {
   }
 
   // Paths accessible only to logged-out users
-  const loggedInUserNotAccessPaths = ['/', '/signin', '/signup'];
+  const loggedInUserNotAccessPaths = [ '/signin', '/signup'];
 
   // Redirect logged-in users away from non-accessible paths
   if (loggedInUserNotAccessPaths.includes(pathname)) {
@@ -107,8 +107,9 @@ export const config = {
   matcher: [
     '/',
     '/dashboard',
-    '/attempt-quiz/:path*',
     '/signin',
     '/signup',
+    '/dashboard/:path*',
+    
   ],
 };
